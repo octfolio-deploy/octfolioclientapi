@@ -1,0 +1,1 @@
+curl http://myclient.octfol.io/getData.php -G -d key=mykey -d client=myclient -d assettype=building -d limit=10

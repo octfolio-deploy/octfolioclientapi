@@ -24,7 +24,7 @@ Sending a GET request with the correct information will allow you to retrieve in
 | condition | Array[Array] | Nested array containing filtering information. Refer to the conditional heading below for more information | &#9744; |
 
 ### Conditions
-HTTP GET requested allow you to tag on conditional headings to filter the returned data. Conditional headings contains the following three things:
+HTTP GET requested allow you to tag on conditional headings to filter the returned data. Conditional headings contain the following three things:
 1. column - this is the column you wish to filter by.
 2. operator - the operation used to filter. Supported operators are "<", ">", ">=", "<=", "=", "like", "LIKE". Please note "LIKE" and "like" are the same.
 3. comparator - this is what we'll be comparing our column to.
@@ -65,7 +65,7 @@ There's three things worth noting here:
 3. We don't validate if your request makes sense. Feel free to check if the last edit date is less than "Barry". The server will simply return no matching records.
 
 ### Asset Types
-Please note, below is a list of all asset types supported by OCTFOLIO, your client portal may not be configured to use certain asset types. For information specific to your portal please reach out to you OCTFOLIO representative or send us an email at the support address listed below.
+Please note, below is a list of all asset types supported by OCTFOLIO, your client portal may not be configured to use certain asset types. For information specific to your portal please reach out to your OCTFOLIO representative or send us an email at the support address listed below.
 | Asset Type | Asset Code | Headings |
 |:------:|:--------:|:--------|
 | Organisation | org | - "organisationid"<br>- "assetid"<br>- "organisationcode"<br>- "organisationname"<br>- "statecode"<br>- "statename"<br>- "regionname"<br>- "insertbyname"<br>- "lasteditedname"<br>- "insertdate"<br>- "lastupdate" |
@@ -81,7 +81,7 @@ Please note, below is a list of all asset types supported by OCTFOLIO, your clie
 
 
 # Return
-The APIs response depends on the type of request sent but three things will never change. The response will always be a JSON array, this array will always contain a boolean return ['error'] as to whether an error was tripped in addition to an array containing the haders sent ['headers']. An exmaple of a successful GET request is below:
+The APIs response depends on the type of request sent but three things will never change. The response will always be a JSON array, this array will always contain a boolean return ['error'] as to whether an error was tripped in addition to an array containing the headers sent ['headers']. An exmaple of a successful GET request is below:
 ```JSON
 {
     "error": false,
@@ -175,7 +175,7 @@ If the API encounters an error with your request it will add ['error']=true to y
     }
 }
 ```
-We can see in the response contains the error flag as well as an attempt to guide me by suggestion valid column headings.
+We can see the response contains the error flag as well as an attempt to guide the user by suggesting valid column headings.
 
 You may also see an incorrect API key error:
 ```JSON
@@ -202,43 +202,43 @@ If you get a response and the message states it's a system error then please con
 
 buildingid and assetid for the first 10 buildings inserted by anyone with "Leon" in their name:
 ```JSON
-    "key": "mykey",
-    "client": "myclient",
-    "assettype": "building",
-    "columns": [
-        "buildingid",
-        "assetid"
-    ],
-    "limit": "10",
-    "condition": [
-        {
-            "column": "insertbyname",
-            "operator": "like",
-            "comparator": "leon"
-        }
-    ]
+"key": "mykey",
+"client": "myclient",
+"assettype": "building",
+"columns": [
+    "buildingid",
+    "assetid"
+],
+"limit": "10",
+"condition": [
+    {
+        "column": "insertbyname",
+        "operator": "like",
+        "comparator": "leon"
+    }
+]
 ```
 All samples taken before March 1st 2020 that have been removed:
 ```JSON
-    "key": "mykey",
-    "client": "myclient",
-    "assettype": "sample",
-    "condition": [
-        {
-            "column": "sampledate",
-            "operator": "<",
-            "comparator": "2020-09-01"
-        },
-        {
-            "column": "acmfullremoval",
-            "operator": "=",
-            "comparator": "1"
-        }
-    ]
+"key": "mykey",
+"client": "myclient",
+"assettype": "sample",
+"condition": [
+    {
+        "column": "sampledate",
+        "operator": "<",
+        "comparator": "2020-09-01"
+    },
+    {
+        "column": "acmfullremoval",
+        "operator": "=",
+        "comparator": "1"
+    }
+]
 ```
 
 # Support
 Email: support@octfolio.com
 Website: [octfolio.com](https://octfolio.com.au/)
 
-As the API grows we at OCTFOLIO we attempt to upload demos for the new features to this repository. Octfolio runs on PHP so the examples will focus around PHP.
+As the API grows we at OCTFOLIO will attempt to upload demos of the new features to this repository. Octfolio runs on PHP so the examples will focus around PHP.

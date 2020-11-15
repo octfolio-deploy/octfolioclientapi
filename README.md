@@ -19,9 +19,11 @@ Sending a GET request with the correct information will allow you to retrieve in
 | key | String | API key provided to you by OCTFOLIO | &#9745; |
 | client | String | Domain name for your client portal | &#9745; |
 | assettype | String | The asset type you wish the retrieve data from. A list may be seen below | &#9745; |
+| version | String | API version number. Refer to the versioning heading for more information | &#9745; |
 | columns | Array | An array indexed from zero containing the columns you wish returned, returns all columns if null | &#9744; |
 | limit | Integer | The number of records you wish to be returned, returns everything if null | &#9744; |
 | condition | Array[Array] | Nested array containing filtering information. Refer to the conditional heading below for more information | &#9744; |
+| order | Array[Array] | Nested array containing ordering information. Refer to the ordering heading for more information | &#9744; |
 
 ### Conditions
 HTTP GET requested allow you to tag on conditional headings to filter the returned data. Conditional headings contain the following three things:
@@ -63,6 +65,28 @@ There's three things worth noting here:
 1. Comparators are not case sensative. Searching for "Bill" is the same as searching for "bill".
 2. Dates and date times use universal format, which is year, month, day, hour, minute, second. e.g. "2020-08-09 21:13:57".
 3. We don't validate if your request makes sense. Feel free to check if the last edit date is less than "Barry". The server will simply return no matching records.
+
+### Ordering return
+Simiular to the conditional headings above you need to pass a nested array to order the returning data. The array should be structured as Array(Array("column"=>"columnname","asc"=>true),Array("column"=>"nextcolumnname","asc"=>false)). Each column inside the array must contain the headings "column" and "asc". Column is the name of the column and asc determines if the column will be in ascending order (true) or decending order (false). For example, if I wanted to sort records by auditid in ascending order and then by date last edited in decending order for the records with the same auditid:
+```JSON
+"order":[
+    {
+        "column":"auditid",
+        "asc":true
+    },
+    {
+        "column":"lastupdate",
+        "asc":"false"
+    }
+]
+```
+
+### Version
+Currently the only release is version 1.0. To pass this into the API use the following setting:
+```JSON
+"verison":"1.0"
+```
+As versions are released they will be updated here. If there is an update that changes how parameters are passed in or how returns are made they will be released in a new version as to not disrupt existing users.
 
 ### Asset Types
 Please note, below is a list of all asset types supported by OCTFOLIO, your client portal may not be configured to use certain asset types. For information specific to your portal please reach out to your OCTFOLIO representative or send us an email at the support address listed below.

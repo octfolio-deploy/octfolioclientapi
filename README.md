@@ -18,7 +18,7 @@ Sending a GET request with the correct information will allow you to retrieve in
 |:------:|:--------:|:--------:|:--------:|
 | key | String | API key provided to you by OCTFOLIO | &#9745; |
 | client | String | Domain name for your client portal | &#9745; |
-| assettype | String | The asset type you wish the retrieve data from. A list may be seen below | &#9745; |
+| assettype | String | The asset type you wish the retrieve data from. A list may be seen below. In the list below you'll need to pass in the asset code | &#9745; |
 | version | String | API version number. Refer to the versioning heading for more information | &#9745; |
 | columns | Array | An array indexed from zero containing the columns you wish returned, returns all columns if null | &#9744; |
 | limit | Integer | The number of records you wish to be returned, returns everything if null | &#9744; |

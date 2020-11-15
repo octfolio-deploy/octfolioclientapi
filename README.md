@@ -26,7 +26,7 @@ Sending a GET request with the correct information will allow you to retrieve in
 | order | Array[Array] | Nested array containing ordering information. Refer to the ordering heading for more information | &#9744; |
 
 ### Conditions
-HTTP GET requested allow you to tag on conditional headings to filter the returned data. Conditional headings contain the following three things:
+HTTP GET requests allow you to tag on conditional headings to filter the returned data. Conditional headings contain the following three things:
 1. column - this is the column you wish to filter by.
 2. operator - the operation used to filter. Supported operators are "<", ">", ">=", "<=", "=", "like", "LIKE". Please note "LIKE" and "like" are the same.
 3. comparator - this is what we'll be comparing our column to.
@@ -67,7 +67,7 @@ There's three things worth noting here:
 3. We don't validate if your request makes sense. Feel free to check if the last edit date is less than "Barry". The server will simply return no matching records.
 
 ### Ordering return
-Simiular to the conditional headings above you need to pass a nested array to order the returning data. The array should be structured as Array(Array("column"=>"columnname","asc"=>true),Array("column"=>"nextcolumnname","asc"=>false)). Each column inside the array must contain the headings "column" and "asc". Column is the name of the column and asc determines if the column will be in ascending order (true) or decending order (false). For example, if I wanted to sort records by auditid in ascending order and then by date last edited in decending order for the records with the same auditid:
+Similar to the conditional headings above you can pass a nested array to order the returning data. The array should be structured as Array(Array("column"=>"columnname","asc"=>true),Array("column"=>"nextcolumnname","asc"=>false)). Each column inside the array must contain the headings "column" and "asc". Column is the name of the column and asc determines if the column will be in ascending order (true) or decending order (false). For example, if I wanted to sort records by auditid in ascending order and then by date last edited in decending order for the records with the same auditid:
 ```JSON
 "order":[
     {
@@ -76,7 +76,7 @@ Simiular to the conditional headings above you need to pass a nested array to or
     },
     {
         "column":"lastupdate",
-        "asc":"false"
+        "asc":false
     }
 ]
 ```
@@ -105,7 +105,7 @@ Please note, below is a list of all asset types supported by OCTFOLIO, your clie
 
 
 # Return
-The APIs response depends on the type of request sent but three things will never change. The response will always be a JSON array, this array will always contain a boolean return ['error'] as to whether an error was tripped in addition to an array containing the headers sent ['headers']. An exmaple of a successful GET request is below:
+The APIs response depends on the type of request sent but three things will never change. The response will always be a JSON array, this array will always contain a boolean return ['error'] as to whether an error was tripped in addition to an array containing the headers sent ['headers']. An example of a successful GET request is below:
 ```JSON
 {
     "error": false,
@@ -130,11 +130,13 @@ The APIs response depends on the type of request sent but three things will neve
         "key": "testkey",
         "client": "testclient",
         "assettype": "record",
-        "limit": "1"
+        "limit": "1",
+        "version":"1.0"
     }
 }
 ```
-More common errors will attempt to guide you in the right direction. For example, querying an asset type that doesn't exist will return a list of asset types you can chose from:
+If the request is successful your data will be returned under the header "data", as seen above.  
+if you experience an error we will attempt to guide you in the right direction with the return message. For example, querying an asset type that doesn't exist will return a list of asset types you can chose from:
 ```JSON
 {
     "error": true,
@@ -154,7 +156,8 @@ More common errors will attempt to guide you in the right direction. For example
         "key": "testkey",
         "client": "testclient",
         "assettype": "lawnchair",
-        "limit": "1"
+        "limit": "1",
+        "version":"1.0"
     }
 }
 ```
@@ -195,11 +198,12 @@ If the API encounters an error with your request it will add ['error']=true to y
             "assetid",
             "buildingmiddlename"
         ],
-        "limit": "1"
+        "limit": "1",
+        "version":"1.0"
     }
 }
 ```
-We can see the response contains the error flag as well as an attempt to guide the user by suggesting valid column headings.
+The response contains the error flag as well as an attempt to guide the user by suggesting valid column headings.
 
 You may also see an incorrect API key error:
 ```JSON
@@ -214,7 +218,8 @@ You may also see an incorrect API key error:
             "buildingid",
             "assetid"
         ],
-        "limit": "1"
+        "limit": "1",
+        "version":"1.0"
     }
 }
 ```
@@ -240,7 +245,8 @@ buildingid and assetid for the first 10 buildings inserted by anyone with "Leon"
         "operator": "like",
         "comparator": "leon"
     }
-]
+],
+"version":"1.0"
 ```
 All samples taken before March 1st 2020 that have been removed:
 ```JSON
@@ -258,11 +264,12 @@ All samples taken before March 1st 2020 that have been removed:
         "operator": "=",
         "comparator": "1"
     }
-]
+],
+"version":"1.0"
 ```
 
 # Support
 Email: support@octfolio.com
 Website: [octfolio.com](https://octfolio.com.au/)
 
-As the API grows we at OCTFOLIO will attempt to upload demos of the new features to this repository. Octfolio runs on PHP so the examples will focus around PHP.
+As the API grows we at OCTFOLIO will attempt to upload demos of the new features to this repository. Octfolio runs on PHP so the examples will focus around PHP but anything that can send a HTTP request can use the API.

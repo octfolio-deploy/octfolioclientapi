@@ -99,8 +99,8 @@ Please note, below is a list of all asset types supported by OCTFOLIO, your clie
 | Room | room | - "roomid"<br>- "levelid"<br>- "assetid"<br>- "roomcode"<br>- "roomname"<br>- "insertbyname"<br>- "lasteditedname"<br>- "insertdate"<br>- "lastupdate" |
 | Object | object | - "assetobjectid"<br>- "roomid"<br>- "assetid"<br>- "assetobjectcode"<br>- "assetobjectname"<br>- "insertbyname"<br>- "lasteditedname"<br>- "insertdate"<br>- "lastupdate" |
 | Audit | audit | - "auditid"<br>- "workordernum"<br>- "scheduleddate"<br>- "auditstatusid"<br>- "adhoc"<br>- "contractorid"<br>- "intrusivenesslevel"<br>- "insertbyname"<br>- "lasteditedname"<br>- "insertdate"<br>- "lastupdate"<br>- "assigneduser"<br>- "auditstatus" |
-| Record | record | - "inspectionid"<br>- "specificid"<br>- "auditid"<br>- "reportdate"<br>- "datecompleted"<br>- "approveddate"<br>- "approvedbyname"<br>- "insertdate"<br>- "insertbyname"<br>- "lastupdate"<br>- "lasteditedname"<br>- "inspector"<br>- "contractorname"<br>- "approvedbyname" |
-| Sample | sample | - "asbestossampleid"<br>- "inspectionid"<br>- "specificid"<br>- "sampledate"<br>- "sampleid"<br>- "notes"<br>- "acmfullremoval"<br>- "insertdate"<br>- "insertbyname"<br>- "lastupdate"<br>- "lasteditedname"<br>- "resultid"<br>- "asbestosstatus" |
+| Record | record | - "inspectionid"<br>- "assetid"<br>- "auditid"<br>- "reportdate"<br>- "datecompleted"<br>- "approveddate"<br>- "approvedbyname"<br>- "insertdate"<br>- "insertbyname"<br>- "lastupdate"<br>- "lasteditedname"<br>- "inspector"<br>- "contractorname"<br>- "approvedbyname" |
+| Sample | sample | - "asbestossampleid"<br>- "inspectionid"<br>- "assetid"<br>- "sampledate"<br>- "sampleid"<br>- "notes"<br>- "acmfullremoval"<br>- "insertdate"<br>- "insertbyname"<br>- "lastupdate"<br>- "lasteditedname"<br>- "resultid"<br>- "asbestosstatus" |
 
 
 
@@ -112,7 +112,7 @@ The APIs response depends on the type of request sent but three things will neve
     "data": [
         {
             "inspectionid": "1",
-            "specificid": "1-1-1-0-0-0",
+            "assetid": "1-1-1-0-0-0",
             "auditid": "1",
             "reportdate": "2015-01-05 00:00:00",
             "datecompleted": "2020-08-10 21:50:04",

@@ -1,8 +1,8 @@
 # Octfolio Client API
-## Introduction
+# Introduction
 The Octfolio API is an API built in PHP that follows RESTFUL principles. If you're looking for documentation for a specific version you can find it under docs. 
 
-## Supported HTTP Verbs
+# Supported HTTP Verbs
 The Octfolio API is constantly under development so this is subject to change
 | HTTP Verb | Support |
 |:------:|:--------:|
@@ -11,9 +11,9 @@ The Octfolio API is constantly under development so this is subject to change
 | POST | &#9744; |
 | DELETE | &#9744; |
 
-## HTTP VERB - GET
+# HTTP VERB - GET
 Sending a GET request with the correct information will allow you to retrieve information from your client portals data source. Please note when preparing your headings that the HTTP GET character limit is 2048 characters. Below is a list of manditory and optional headings you can add to your GET request.
-### Headings
+## Headings
 | Heading | Type | Description | Manditory |
 |:------:|:--------:|:--------:|:--------:|
 | key | String | API key provided to you by OCTFOLIO | &#9745; |
@@ -24,8 +24,9 @@ Sending a GET request with the correct information will allow you to retrieve in
 | limit | Integer | The number of records you wish to be returned, returns everything if null | &#9744; |
 | condition | Array[Array] | Nested array containing filtering information. Refer to the conditional heading below for more information | &#9744; |
 | order | Array[Array] | Nested array containing ordering information. Refer to the ordering heading for more information | &#9744; |
+| pageinfo | Array[Array] | Nested array containing paging information. Refer to the pageinfo heading for more information | &#9744; |
 
-### Conditions
+## Conditions
 HTTP GET requests allow you to tag on conditional headings to filter the returned data. Conditional headings contain the following three things:
 1. column - this is the column you wish to filter by.
 2. operator - the operation used to filter. Supported operators are "<", ">", ">=", "<=", "=", "like", "LIKE". Please note "LIKE" and "like" are the same.
@@ -66,7 +67,7 @@ There's three things worth noting here:
 2. Dates and date times use universal format, which is year, month, day, hour, minute, second. e.g. "2020-08-09 21:13:57".
 3. We don't validate if your request makes sense. Feel free to check if the last edit date is less than "Barry". The server will simply return no matching records.
 
-### Ordering return
+## Ordering return
 Similar to the conditional headings above you can pass a nested array to order the returning data. The array should be structured as Array(Array("column"=>"columnname","asc"=>true),Array("column"=>"nextcolumnname","asc"=>false)). Each column inside the array must contain the headings "column" and "asc". Column is the name of the column and asc determines if the column will be in ascending order (true) or decending order (false). For example, if I wanted to sort records by auditid in ascending order and then by date last edited in decending order for the records with the same auditid:
 ```JSON
 "order":[
@@ -81,14 +82,26 @@ Similar to the conditional headings above you can pass a nested array to order t
 ]
 ```
 
-### Version
-The current released versions of the API are "1.0" and "1.1". To pass this into the API use the following setting:
+## Pageinfo
+Pageinfo is a parameter used to control pagination for API returns. pageinfo is an associative array containing the 'page' and 'pagelength' indexes. The 'page' and 'pagelength' indexes should both be positive, non-zero whole numbers. The format is as follows:
+```JSON
+"pageinfo":{
+    {
+        "page":"2",
+        "pagelength":"50"
+    }
+}
+```
+The 'page' index controls the page number (starting from 1) while the 'pagelength' index controls the number of records per page. The above example shows the second page with 50 records per page (record 51-100).
+
+## Version
+Currently the only released version of the API is "1.1". To pass this into the API use the following setting:
 ```JSON
 "verison":"1.1"
 ```
 As versions are released they will be updated here. If there is an update that changes how parameters are passed in or how returns are made they will be released in a new version as to not disrupt existing users.
 
-### Asset Types
+## Asset Types
 Please note, below is a list of all asset types supported by OCTFOLIO, your client portal may not be configured to use certain asset types. For information specific to your portal please reach out to your OCTFOLIO representative or send us an email at the support address listed below.
 | Asset Type | Asset Code | Headings |
 |:------:|:--------:|:--------|
@@ -102,7 +115,8 @@ Please note, below is a list of all asset types supported by OCTFOLIO, your clie
 | Record | record | - "inspectionid"<br>- "assetid"<br>- "auditid"<br>- "reportdate"<br>- "datecompleted"<br>- "approveddate"<br>- "approvedbyname"<br>- "insertdate"<br>- "insertbyname"<br>- "lastupdate"<br>- "lasteditedname"<br>- "inspector"<br>- "contractorname"<br>- "approvedbyname" |
 | Sample | sample | - "asbestossampleid"<br>- "inspectionid"<br>- "assetid"<br>- "sampledate"<br>- "sampleid"<br>- "notes"<br>- "acmfullremoval"<br>- "insertdate"<br>- "insertbyname"<br>- "lastupdate"<br>- "lasteditedname"<br>- "resultid"<br>- "asbestosstatus" |
 
-
+## Combined key
+If you have been supplied with a combined key from Octfolio this key will allow you you to search over multiple client portals at once. When data is returned it will contain an additional column for 'portal' with the domain of the portal the data belonged to. If you wish to acquire a combined key please contact your octfolio representative or send our support an email at the address listed at the bottom.
 
 # Return
 The APIs response depends on the type of request sent but three things will never change. The response will always be a JSON array, this array will always contain a boolean return ['error'] as to whether an error was tripped in addition to an array containing the headers sent ['headers']. An example of a successful GET request is below:
@@ -131,7 +145,7 @@ The APIs response depends on the type of request sent but three things will neve
         "client": "testclient",
         "assettype": "record",
         "limit": "1",
-        "version":"1.0"
+        "version":"1.1"
     }
 }
 ```
@@ -157,7 +171,7 @@ if you experience an error we will attempt to guide you in the right direction w
         "client": "testclient",
         "assettype": "lawnchair",
         "limit": "1",
-        "version":"1.0"
+        "version":"1.1"
     }
 }
 ```
@@ -200,7 +214,7 @@ If the API encounters an error with your request it will add ['error']=true to y
             "buildingmiddlename"
         ],
         "limit": "1",
-        "version":"1.0"
+        "version":"1.1"
     }
 }
 ```
@@ -220,7 +234,7 @@ You may also see an incorrect API key error:
             "assetid"
         ],
         "limit": "1",
-        "version":"1.0"
+        "version":"1.1"
     }
 }
 ```
@@ -247,7 +261,7 @@ buildingid and assetid for the first 10 buildings inserted by anyone with "Leon"
         "comparator": "leon"
     }
 ],
-"version":"1.0"
+"version":"1.1"
 ```
 All samples taken before March 1st 2020 that have been removed:
 ```JSON
@@ -266,7 +280,7 @@ All samples taken before March 1st 2020 that have been removed:
         "comparator": "1"
     }
 ],
-"version":"1.0"
+"version":"1.1"
 ```
 
 # Support
